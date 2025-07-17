@@ -3,10 +3,15 @@ name: .NET Console CI
 on:
   push:
     branches: [master]
-    
+    paths:
+      - './scr/**'
+  pull_request:
+    branches: [master]
+    paths:
+      - './scr/**'
 
 jobs:
-  build-and-test:
+  build-and-run:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -21,9 +26,11 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Build project
-        run: dotnet build --no-restore --configuration Release ./scr/myapp/myapp.csproj
+      - name: Restore dependencies
+        run: dotnet restore ./scr/myapp/myapp.csproj
 
+      - name: Build project
+        run: dotnet build --configuration Release ./scr/myapp/myapp.csproj
 
       - name: Run myapp
-        run: dotnet run --no-restore --configuration Release --project ./scr/myapp/myapp.csproj
+        run: dotnet run --configuration Release --project ./scr/myapp/myapp.csproj
