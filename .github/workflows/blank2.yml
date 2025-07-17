@@ -4,11 +4,11 @@ on:
   push:
     branches: [master]
     paths:
-      - './scr/**'
+      - 'scr/**'
   pull_request:
     branches: [master]
     paths:
-      - './scr/**'
+      - 'scr/**'
 
 jobs:
   build-and-run:
@@ -27,10 +27,10 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore ./scr/myapp/myapp.csproj
+        run: dotnet restore scr/myapp/myapp.csproj
 
       - name: Build project
-        run: dotnet build --configuration Release ./scr/myapp/myapp.csproj
+        run: dotnet build --configuration Release scr/myapp/myapp.csproj
 
       - name: Run myapp
-        run: dotnet run --configuration Release --project ./scr/myapp/myapp.csproj
+        run: dotnet run --configuration Release --project scr/myapp/myapp.csproj
